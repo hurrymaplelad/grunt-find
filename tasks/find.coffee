@@ -13,18 +13,19 @@ makeDestPath = (cwd, filename, prefix, ext) ->
 module.exports = (grunt) ->
   # not a multitask to avoid default file expansion
   grunt.registerTask 'find', pkg.description, ->
-    config = grunt.config.getRaw @name
+    allConfig = grunt.config.getRaw @name
     [target] = @args
 
     # reproduce multitask behavior of running all targets by default
     unless target
-      grunt.task.run Object.keys(config).map (target) =>
+      grunt.task.run Object.keys(allConfig).map (target) =>
         "#{@name}:#{target}"
       return
 
     done = @async()
-    {name, cnewer, cwd, expand, dest, ext} = _(config[target]).defaults
+    {name, cnewer, cwd, expand, dest, ext, config} = _(allConfig[target]).defaults
       cwd: '.'
+      config: "#{@name}.#{target}.files"
 
     command = ['find', cwd]
     if name
@@ -58,5 +59,5 @@ module.exports = (grunt) ->
         if dest
           files[0].dest = dest
 
-      grunt.config [@name, target, 'files'], files
+      grunt.config config, files
       done()

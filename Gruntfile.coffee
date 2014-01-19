@@ -24,8 +24,9 @@ module.exports = (grunt) ->
         dest: 'lib/'
         ext: '.js'
 
-      # config:
-      #   config: 'test.results'
+      config:
+        name: 'Gruntfile.coffee'
+        config: 'find.configured.files'
 
     touch:
       spelt: 'test/fixtures/grains/spelt.coffee'
@@ -44,6 +45,8 @@ module.exports = (grunt) ->
       dest: files: [src: 'Gruntfile.coffee', dest: 'Gruntfile.js']
 
       destExpand: files: [src: 'Gruntfile.coffee', dest: 'lib/Gruntfile.js']
+
+      configured: files: [src: ['Gruntfile.coffee']]
 
   grunt.loadTasks 'tasks'
   grunt.loadNpmTasks 'grunt-touch'
