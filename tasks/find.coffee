@@ -1,7 +1,6 @@
 pkg = require '../package.json'
-{exec} = require 'child_process'
 _ = require 'underscore'
-escape = require 'shell-escape'
+shellFind = require 'shell-find'
 
 makeDestPath = (cwd, filename, prefix, ext) ->
   if filename.indexOf(cwd) is 0
@@ -27,23 +26,22 @@ module.exports = (grunt) ->
       cwd: '.'
       config: "#{@name}.#{target}.files"
 
-    command = ['find', cwd]
+    finder = shellFind cwd
     if name
-      command.push '-name', name
+      [].concat(name).forEach (n) ->
+        finder.name n
     if newer
-      command.push '-newer', newer
-    command.push '-print'
-    command = escape command
-    grunt.log.verbose.writeln "# Running `#{command}`"
+      [].concat(newer).forEach (n) ->
+        finder.newer n
 
-    exec command, (err, stdout, stderr) =>
-      if err or stderr
-        grunt.fail.fatal err or sterr
+    grunt.log.verbose.writeln "# Running `#{finder.command()}`"
+
+    finder.exec (err, filenames) =>
+      if err
+        grunt.fail.fatal err
         done(false)
 
-      files = stdout
-        .split('\n')
-        .filter(Boolean)
+      files = filenames
         .map (filename) ->
           filename.replace /^.\//, ''
 
