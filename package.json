@@ -1,0 +1,25 @@
+{
+  "name": "grunt-find",
+  "version": "0.0.0",
+  "description": "Faster dynamic file expansion",
+  "main": "Gruntfile.coffee",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "keywords": [
+    "grunt",
+    "files",
+    "match",
+    "fast"
+  ],
+  "author": "Adam Hull <adam@hmlad.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "should": "~3.0.1",
+    "grunt-touch": "~0.1.0"
+  },
+  "dependencies": {
+    "underscore": "~1.5.2"
+  }
+}
