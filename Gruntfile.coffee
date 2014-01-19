@@ -35,8 +35,8 @@ module.exports = (grunt) ->
       single: files:[src: ['Gruntfile.coffee']]
 
       multi: files: [src: [
-        'test/fixtures/beet.coffee'
         'test/fixtures/grains/spelt.coffee'
+        'test/fixtures/kale.coffee'
         'test/fixtures/radish.coffee'
       ]]
 
