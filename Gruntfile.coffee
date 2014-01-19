@@ -5,6 +5,7 @@ module.exports = (grunt) ->
         name: 'Gruntfile.coffee'
 
       multi:
+        expand: true
         cwd: 'test/fixtures'
         name: '*.coffee'
 
@@ -34,11 +35,11 @@ module.exports = (grunt) ->
     expected:
       single: files:[src: ['Gruntfile.coffee']]
 
-      multi: files: [src: [
-        'test/fixtures/grains/spelt.coffee'
-        'test/fixtures/kale.coffee'
-        'test/fixtures/radish.coffee'
-      ]]
+      multi: files: [
+        {src: ['test/fixtures/grains/spelt.coffee']}
+        {src: ['test/fixtures/kale.coffee']}
+        {src: ['test/fixtures/radish.coffee']}
+      ]
 
       changed: files: [src: ['test/fixtures/grains/spelt.coffee']]
 
