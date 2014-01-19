@@ -13,15 +13,16 @@ module.exports = (grunt) ->
         name: '*.coffee'
         cnewer: 'test/fixtures/radish.coffee'
 
-      # dest:
-      #   name: 'Gruntfile.coffee'
-      #   dest: 'Gruntfile.js'
+      dest:
+        name: 'Gruntfile.coffee'
+        dest: 'Gruntfile.js'
 
-      # destExpand:
-      #   name: 'Gruntfile.coffee'
-      #   expand: true
-      #   dest: 'lib'
-      #   ext: '.js'
+      destExpand:
+        name: 'Gruntfile.coffee'
+        expand: true
+
+        dest: 'lib/'
+        ext: '.js'
 
       # config:
       #   config: 'test.results'
@@ -39,6 +40,10 @@ module.exports = (grunt) ->
       ]]
 
       changed: files: [src: ['test/fixtures/grains/spelt.coffee']]
+
+      dest: files: [src: 'Gruntfile.coffee', dest: 'Gruntfile.js']
+
+      destExpand: files: [src: 'Gruntfile.coffee', dest: 'lib/Gruntfile.js']
 
   grunt.loadTasks 'tasks'
   grunt.loadNpmTasks 'grunt-touch'
