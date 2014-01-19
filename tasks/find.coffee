@@ -22,7 +22,7 @@ module.exports = (grunt) ->
       return
 
     done = @async()
-    {name, newer, cwd, expand, dest, ext, config} = _(allConfig[target]).defaults
+    {name, newer, cwd, expand, prune, dest, ext, config} = _(allConfig[target]).defaults
       cwd: '.'
       config: "#{@name}.#{target}.files"
 
@@ -33,6 +33,9 @@ module.exports = (grunt) ->
     if newer
       [].concat(newer).forEach (n) ->
         finder.newer n
+    if prune
+      [].concat(prune).forEach (p) ->
+        finder.prune p
 
     grunt.log.verbose.writeln "# Running `#{finder.command()}`"
 

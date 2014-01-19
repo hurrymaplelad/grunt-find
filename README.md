@@ -35,7 +35,7 @@ Check out the Gruntfile for more examples.
 Configuration
 -------------
 
-#### name, prune
+#### name, prune, newer
 Pattern(s) to match against filename path components.  `name` includes.  `prune` excludes.
 
 #### config

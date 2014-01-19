@@ -15,8 +15,9 @@ module.exports = (grunt) ->
         newer: 'test/fixtures/radish.coffee'
 
       dest:
-        name: 'find.coffee'
-        dest: 'find.js'
+        name: 'Gruntfile.coffee'
+        prune: 'node_modules'
+        dest: 'Gruntfile.js'
 
       destExpand:
         name: 'find.coffee'
@@ -43,7 +44,7 @@ module.exports = (grunt) ->
 
       changed: files: [src: ['test/fixtures/grains/spelt.coffee']]
 
-      dest: files: [src: 'tasks/find.coffee', dest: 'find.js']
+      dest: files: [src: 'Gruntfile.coffee', dest: 'Gruntfile.js']
 
       destExpand: files: [src: 'tasks/find.coffee', dest: 'lib/tasks/find.js']
 
