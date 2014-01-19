@@ -6,6 +6,10 @@
   "scripts": {
     "test": "grunt test"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hurrymaplelad/grunt-shell.git"
+  },
   "keywords": [
     "grunt",
     "files",
