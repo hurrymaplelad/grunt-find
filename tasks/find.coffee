@@ -23,15 +23,15 @@ module.exports = (grunt) ->
       return
 
     done = @async()
-    {name, cnewer, cwd, expand, dest, ext, config} = _(allConfig[target]).defaults
+    {name, newer, cwd, expand, dest, ext, config} = _(allConfig[target]).defaults
       cwd: '.'
       config: "#{@name}.#{target}.files"
 
     command = ['find', cwd]
     if name
       command.push '-name', name
-    if cnewer
-      command.push '-cnewer', cnewer
+    if newer
+      command.push '-newer', newer
     command.push '-print'
     command = escape command
     grunt.log.verbose.writeln "# Running `#{command}`"

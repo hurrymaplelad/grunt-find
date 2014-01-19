@@ -2,7 +2,7 @@ module.exports = (grunt) ->
   grunt.config.init
     find:
       single:
-        name: 'Gruntfile.coffee'
+        name: 'find.coffee'
 
       multi:
         expand: true
@@ -12,28 +12,28 @@ module.exports = (grunt) ->
       changed:
         expand: true
         name: '*.coffee'
-        cnewer: 'test/fixtures/radish.coffee'
+        newer: 'test/fixtures/radish.coffee'
 
       dest:
-        name: 'Gruntfile.coffee'
-        dest: 'Gruntfile.js'
+        name: 'find.coffee'
+        dest: 'find.js'
 
       destExpand:
-        name: 'Gruntfile.coffee'
+        name: 'find.coffee'
         expand: true
 
         dest: 'lib/'
         ext: '.js'
 
       config:
-        name: 'Gruntfile.coffee'
+        name: 'find.coffee'
         config: 'find.configured.files'
 
     touch:
       spelt: 'test/fixtures/grains/spelt.coffee'
 
     expected:
-      single: files:[src: ['Gruntfile.coffee']]
+      single: files:[src: ['tasks/find.coffee']]
 
       multi: files: [
         {src: ['test/fixtures/grains/spelt.coffee']}
@@ -43,11 +43,11 @@ module.exports = (grunt) ->
 
       changed: files: [src: ['test/fixtures/grains/spelt.coffee']]
 
-      dest: files: [src: 'Gruntfile.coffee', dest: 'Gruntfile.js']
+      dest: files: [src: 'tasks/find.coffee', dest: 'find.js']
 
-      destExpand: files: [src: 'Gruntfile.coffee', dest: 'lib/Gruntfile.js']
+      destExpand: files: [src: 'tasks/find.coffee', dest: 'lib/tasks/find.js']
 
-      configured: files: [src: ['Gruntfile.coffee']]
+      configured: files: [src: ['tasks/find.coffee']]
 
   grunt.loadTasks 'tasks'
   grunt.loadNpmTasks 'grunt-touch'
