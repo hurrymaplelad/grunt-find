@@ -1,14 +1,22 @@
 pkg = require '../package.json'
 {exec} = require 'child_process'
 _ = require 'underscore'
+escape = require 'shell-escape'
 
 module.exports = (grunt) ->
   grunt.registerMultiTask 'find', pkg.description, ->
     done = @async()
-    {name, cwd, expand} = _(@data).defaults
+    {name, cwd, expand, cnewer} = _(@data).defaults
       cwd: '.'
 
-    command = "find #{cwd} -name '#{name}' -print"
+
+    command = ['find', cwd]
+    if name
+      command.push '-name', name
+    if cnewer
+      command.push '-cnewer', cnewer
+    command.push '-print'
+    command = escape command
     grunt.log.verbose.writeln "# Running `#{command}`"
 
     exec command, (err, stdout, stderr) =>

@@ -20,6 +20,7 @@
     "grunt-touch": "~0.1.0"
   },
   "dependencies": {
-    "underscore": "~1.5.2"
+    "underscore": "~1.5.2",
+    "shell-escape": "0.0.1"
   }
 }

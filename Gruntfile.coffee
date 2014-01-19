@@ -8,12 +8,19 @@ module.exports = (grunt) ->
         cwd: 'test/fixtures'
         name: '*.coffee'
 
-      # changed:
-      #   name: '*.coffee'
-      #   cnewer: 'test/fixtures/grains/spelt.coffee'
+      changed:
+        expand: true
+        name: '*.coffee'
+        cnewer: 'test/fixtures/radish.coffee'
 
-      # destinationExpansion:
-      #   dest: 'lib/'
+      # dest:
+      #   name: 'Gruntfile.coffee'
+      #   dest: 'Gruntfile.js'
+
+      # destExpand:
+      #   name: 'Gruntfile.coffee'
+      #   expand: true
+      #   dest: 'lib'
       #   ext: '.js'
 
       # config:
@@ -21,7 +28,6 @@ module.exports = (grunt) ->
 
     touch:
       spelt: 'test/fixtures/grains/spelt.coffee'
-      radish: 'test/fixtures/radish.coffee'
 
     expected:
       single: files:[src: ['Gruntfile.coffee']]
@@ -32,18 +38,21 @@ module.exports = (grunt) ->
         'test/fixtures/radish.coffee'
       ]]
 
-      # changed: files: [src: ['test/fixtures/radish.coffee']]
+      changed: files: [src: ['test/fixtures/grains/spelt.coffee']]
 
   grunt.loadTasks 'tasks'
   grunt.loadNpmTasks 'grunt-touch'
 
   grunt.registerMultiTask 'expected', ->
     require 'should'
-    grunt.config("find.#{@target}.files").should.eql @data.files
+    foundFiles = grunt.config("find.#{@target}.files")
+    if @target is 'changed'
+      foundFiles.should.containEql @data.files[0]
+    else
+      foundFiles.should.eql @data.files
 
   grunt.registerTask 'test', [
     'touch:spelt'
-    'touch:radish'
     'find'
     'expected'
   ]
