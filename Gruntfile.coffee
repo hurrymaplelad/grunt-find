@@ -54,10 +54,8 @@ module.exports = (grunt) ->
   grunt.registerMultiTask 'expected', ->
     require 'should'
     foundFiles = grunt.config("find.#{@target}.files")
-    if @target is 'changed'
-      foundFiles.should.containEql @data.files[0]
-    else
-      foundFiles.should.eql @data.files
+    for file in @data.files
+      foundFiles.should.containEql file
 
   grunt.registerTask 'test', [
     'touch:spelt'
