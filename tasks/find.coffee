@@ -32,7 +32,10 @@ module.exports = (grunt) ->
         finder.name n
     if newer
       [].concat(newer).forEach (n) ->
-        finder.newer n
+        if grunt.file.exists n
+          finder.newer n
+        else
+          grunt.log.verbose.writeln "newer file missing: #{n}, skipped"
     if prune
       [].concat(prune).forEach (p) ->
         finder.prune p

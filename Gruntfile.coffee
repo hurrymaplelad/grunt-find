@@ -14,6 +14,11 @@ module.exports = (grunt) ->
         name: '*.coffee'
         newer: 'test/fixtures/radish.coffee'
 
+      missingNewer:
+        expand: true
+        name: '*.coffee'
+        newer: 'does/not/exist'
+
       dest:
         name: 'Gruntfile.coffee'
         prune: 'node_modules'
