@@ -21,24 +21,21 @@ module.exports = (grunt) ->
         "#{@name}:#{target}"
       return
 
+    @data = allConfig[target]
     done = @async()
-    {name, newer, cwd, expand, prune, dest, ext, config} = _(allConfig[target]).defaults
+    {config, cwd, dest, expand, ext} = _(@data).defaults
       cwd: '.'
       config: "#{@name}.#{target}.files"
 
     finder = shellFind cwd
-    if name
-      [].concat(name).forEach (n) ->
-        finder.name n
-    if newer
-      [].concat(newer).forEach (n) ->
-        if grunt.file.exists n
-          finder.newer n
-        else
-          grunt.log.verbose.writeln "newer file missing: #{n}, skipped"
-    if prune
-      [].concat(prune).forEach (p) ->
-        finder.prune p
+    methodCalls = _(@data).omit 'config', 'cwd', 'dest', 'expand', 'ext'
+    for methodName, args of methodCalls
+      [].concat(args).forEach (arg) ->
+        if methodName is 'newer' and not grunt.file.exists arg
+          grunt.log.verbose.writeln "newer file missing: #{arg}, skipped"
+          return
+
+        finder[methodName](arg)
 
     grunt.log.verbose.writeln "# Running `#{finder.command()}`"
 

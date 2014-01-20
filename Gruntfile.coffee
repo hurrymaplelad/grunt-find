@@ -35,6 +35,11 @@ module.exports = (grunt) ->
         name: 'find.coffee'
         config: 'find.configured.files'
 
+      type:
+        cwd: 'test/fixtures'
+        type: 'dir'
+        expand: true
+
     touch:
       spelt: 'test/fixtures/grains/spelt.coffee'
 
@@ -55,6 +60,10 @@ module.exports = (grunt) ->
 
       configured: files: [src: ['tasks/find.coffee']]
 
+      type:
+        files: [src: ['test/fixtures/grains']]
+        not: [src: ['test/fixtures/grains/spelt.coffee']]
+
   grunt.loadTasks 'tasks'
   grunt.loadNpmTasks 'grunt-touch'
 
@@ -63,6 +72,8 @@ module.exports = (grunt) ->
     foundFiles = grunt.config("find.#{@target}.files")
     for file in @data.files
       foundFiles.should.containEql file
+    for file in @data.not or []
+      foundFiles.should.not.containEql file
 
   grunt.registerTask 'test', [
     'touch:spelt'
