@@ -18,7 +18,7 @@ grunt.initConfig({
   find: {
     coffee: {
       name: '*.coffee',
-      prune: 'node_module'
+      prune: 'node_module',
       expand: true,
       dest: 'lib/',
       ext: '.js',
